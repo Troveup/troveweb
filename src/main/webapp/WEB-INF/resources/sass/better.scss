@@ -1,0 +1,1059 @@
+$troveRed:                 #DD2435;
+$troveRedHighlight:        #F26868;
+$troveGray:                #8E8B8B;
+$troveGrayLight:           #B7B0B0;
+$troveGrayDark:            #2E2626;
+$troveBG:                  #FFFFFF;
+$troveGrayDisabled:        #ABABAB;
+
+// One off shades of gray
+$troveGrayBorder:          #DEDEDE;
+$troveDarkGrayBorder:      #D0D0D0;
+$troveOffWhite:            #FBFBFB;
+$troveSubtleGrayText:      #6A6A6A;
+
+// other colors
+$facebookBlue:             #3B5998;
+$facebookBlueHighlight:    #5677BB;
+$verifyGreen:              #2EAF78;
+$verifyRed:                $troveRedHighlight;
+
+
+* {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  outline: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  font-family: "Raleway", Helvetica, Arial, sans-serif;
+  letter-spacing: 1px;
+  font-weight: 300;
+  background: $troveBG;
+  overflow: hidden;
+}
+
+body {
+  padding-top: 93px;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 0px;
+  margin: 0px;
+  // overflow: hidden;
+}
+
+input, select {
+  border: 1px solid #bfbfbf;
+  outline: 0;
+  left: 0px;
+  position: relative;
+  top: 0px;
+  padding: 0px 5px;
+}
+
+#newControlContainer {
+  height: 404px;
+  // display: none;
+}
+
+#controlContainer {
+  width: 100%;
+  height: 400px;
+  border: 1px solid $troveGrayBorder;
+  background: $troveBG;
+  margin-top: 20px;
+}
+.steps {
+  margin-top: -104px;
+}
+.step {
+  width: 100%;
+  height: 100%;
+}
+.content-holder {
+  margin-top: 55px;
+  padding: 25px 0px 25px 25px;
+  width: 100%;
+  background: #FFF;
+  height: 285px;
+  text-align: center;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.content {
+  &#he {
+    color: #666;
+    height: 500px;
+  }
+  &#the {
+    color: #666;
+    height: 100px;
+  }
+
+}
+
+#sidebar {
+  position: absolute;
+  padding: 40px;
+  width: 30%;
+  left: 0;
+  top: 0;
+  max-height: 100%;
+  overflow: scroll;
+  background: $troveGrayBorder;
+  display: none;
+}
+#main {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 620px;
+  //overflow: hidden;
+  //margin-top: -71px;
+}
+#canvas {
+  position: absolute;
+  left: 50%;
+  margin-left: -550px;
+  top: 260px;
+  margin-top: -400px;
+}
+
+#covercanvas {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 620px;
+  // box-shadow: inset 0px 0px 60px 60px white;
+  pointer-events: none;
+}
+
+#cam {
+  text-align: right;
+  height: 0px;
+}
+
+#can {
+  text-align: center;
+}
+
+#con {
+  text-align: left;
+}
+
+h1, h2, h3 {
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: none;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+h4 {
+  margin-top: 18px;
+  text-align: center;
+  white-space: nowrap;
+  margin: 20px 40px 0px 40px;
+}
+
+h5 {
+  text-align: center;
+}
+
+h1 {
+  font-family: 'Vollkorn',Helvetica,serif;
+  font-size: 30px;
+  line-height: 1.1;
+}
+h2 {
+  font-family: 'Vollkorn',Helvetica,serif;
+  font-size: 26px;
+  line-height: .6;
+}
+
+h3 a {
+  font-size: 20px;
+  color: #333;
+}
+
+h3 a:focus, h3 a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+#nextButton {
+  display: inline-block !important;
+  position: relative;
+  z-index: 100;
+  height: 50px;
+  width: 50%;
+  background: $troveRed;
+  color: #FFF;
+  padding: 0px;
+  margin: 60px 0px -114px 0px;
+  border-top: 1px solid $troveRed;
+  border-bottom: 1px solid $troveRed;
+  span {
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+  .icon {
+    font-size: 36px;
+    display: inline-block;
+    position: absolute;
+    right: 12px;
+    font-size: 36px;
+    top: 0px;
+  }
+}
+#prevButton {
+  display: inline-block !important;
+  position: relative;
+  left: 0%;
+  z-index: 100;
+  height: 50px;
+  width: 50%;
+  background: #FFF;
+  color: #666;
+  padding: 0px;
+  margin: 60px 0px -114px 0px;
+  border-top: 1px solid $troveGrayBorder;
+  border-bottom: 1px solid $troveGrayBorder;
+  span {
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+  .icon {
+    font-size: 36px;
+    display: inline-block;
+    position: absolute;
+    left: 12px;
+    font-size: 36px;
+    top: 0px;
+  }
+}
+
+#prevButton.slick-disabled {
+  color: $troveGrayBorder;
+  cursor: default;
+}
+
+#nextButton.slick-disabled {
+  color: $troveGrayBorder;
+  padding: 0px;
+  margin: 60px 0px -114px 0px;
+  border-top: 1px solid $troveGrayBorder;
+  border-bottom: 1px solid $troveGrayBorder;
+  border-left: 1px solid $troveGrayBorder;
+  background: #FFF;
+  cursor: default;
+}
+
+#actions {
+  margin-left: -1px;
+  margin-right: -1px;
+  border-top: 1px solid $troveGrayBorder;
+}
+
+#redoButton {
+  position: relative;
+  left: 0%;
+  z-index: 100;
+  height: 64px;
+  width: 50%;
+  background: #FFF;
+  color: #666;
+  padding: 0px 0px 10px 0px;
+  border-left: 1px solid $troveGrayBorder;
+  span {
+    font-size: 10px;
+    letter-spacing: 1px;
+    position: relative;
+    margin-top: -5px;
+    display: block;
+  }
+  .icon {
+    font-size: 28px;
+  }
+}
+#saveButton {
+  position: relative;
+  z-index: 100;
+  height: 64px;
+  width: 50%;
+  background: #FFF;
+  color: #666;
+  padding: 0px 0px 10px 0px;
+  border-right: 1px solid $troveGrayBorder;
+  span {
+    font-size: 10px;
+    letter-spacing: 1px;
+    position: relative;
+    margin-top: -5px;
+    display: block;
+  }
+  .icon {
+    font-size: 28px;
+  }
+}
+#addButton {
+  position: relative;
+  z-index: 100;
+  height: 60px;
+  width: 100%;
+  background: $troveRed;
+  color: #FFF;
+  padding: 0px;
+  border: 1px solid $troveRed;
+  span {
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+}
+
+#homeButton {
+  position: relative;
+  left: 0%;
+  z-index: 100;
+  height: 64px;
+  width: 50%;
+  background: #FFF;
+  color: #666;
+  padding: 0px 0px 10px 0px;
+  border-left: 1px solid $troveGrayBorder;
+  display: none;
+  span {
+    font-size: 10px;
+    letter-spacing: 1px;
+    position: relative;
+    margin-top: -5px;
+    display: block;
+  }
+  .icon {
+    font-size: 28px;
+  }
+}
+#addtoButton {
+  position: relative;
+  z-index: 100;
+  height: 64px;
+  width: 50%;
+  background: #FFF;
+  color: #666;
+  padding: 0px 0px 10px 0px;
+  border-right: 1px solid $troveGrayBorder;
+  display: none;
+  span {
+    font-size: 10px;
+    letter-spacing: 1px;
+    position: relative;
+    margin-top: -5px;
+    display: block;
+  }
+  .icon {
+    font-size: 28px;
+  }
+}
+
+#redoButton.disabled, #saveButton.disabled, #addButton.disabled  {
+  background: #FFF;
+  color: $troveGrayBorder;
+  border-color: $troveGrayBorder;
+  cursor: default;
+}
+
+.nav-center {
+  text-align: center;
+  margin: 0;
+  float: none;
+  position: absolute;
+  width: 100%;
+  height: 0px;
+}
+
+.nav-logo {
+  width: 130px;
+  padding-top: 16px;
+  padding-bottom: 12px;
+  margin: auto;
+}
+
+.navbar-toggle {
+  float: left;
+  margin-top: 15px;
+  margin-left: 10px;
+  .icon-bar {
+    display: block;
+    height: 3px;
+    background: $troveGray;
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar-right {
+    margin-right: 0px;
+  }
+  #info, #controlContainer {
+    max-width: 400px;
+  }
+  .content-holder::-webkit-scrollbar {
+    width: 14px;
+  }
+
+  .content-holder::-webkit-scrollbar-track {
+    background: #FFF;
+    border-radius: 10px;
+  }
+
+  .content-holder::-webkit-scrollbar-thumb {
+    border-radius: 14px;
+    background-color: $troveGrayBorder;
+    border: 5px solid #FFF;
+  }
+
+  .mobilenav {
+    display: none;
+  }
+
+}
+
+#prevvButton {
+  position: fixed;
+  z-index: 118;
+  height: 50px;
+  width: 50px;
+  left: 0px;
+  bottom: 0px;
+  background: transparent;
+  color: #FFF;
+  padding: 0px;
+  margin: 0px;
+  border-top: 0px solid #DD2435;
+  border-bottom: 0px solid #DD2435;
+  span {
+    display: none;
+  }
+  .icon {
+    left: 18px;
+    top: -12px;
+    font-size: 50px;
+    position: absolute;
+  }
+  &.final {
+    bottom: 60px;
+  }
+}
+#nexttButton {
+  position: fixed;
+  z-index: 118;
+  height: 50px;
+  width: 50px;
+  right: 0px;
+  bottom: 0px;
+  background: transparent;
+  color: #FFF;
+  padding: 0px;
+  margin: 0px;
+  border-top: 0px solid #DD2435;
+  border-bottom: 0px solid #DD2435;
+  span {
+    display: none;
+  }
+  .icon {
+    right: 18px;
+    top: -12px;
+    font-size: 50px;
+    position: absolute;
+  }
+  &.final {
+    bottom: 60px;
+  }
+}
+
+#nexttButton.slick-disabled, #prevvButton.slick-disabled {
+  color: $troveGrayDisabled;
+}
+
+.mobilesteps.slick-initialized.slick-slider {
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  position: fixed;
+  left: 0px;
+  width: 100%;
+  bottom: 0;
+  background: $troveGray;
+  color: #FFF;
+  height: 60px;
+  display: none;
+  h4 {
+    margin-top: 10px;
+  }
+  h5 {
+    font-size: 12px;
+  }
+}
+
+button {
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+
+
+// whats
+
+
+#options {
+  margin: 20px 10px;
+}
+.drop-label {
+  text-shadow: none;
+  color: #666;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 90%;
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
+.ui-radio .ui-btn.ui-radio-on:after {
+  background-image: none;
+  background-color: #fff;
+  width: 18px;
+  height: 18px;
+  border-width: 5px;
+  border-style: solid;
+}
+.ui-page-theme-a .ui-radio-on:after, html .ui-bar-a .ui-radio-on:after, html .ui-body-a .ui-radio-on:after, html body .ui-group-theme-a .ui-radio-on:after, .ui-btn.ui-radio-on.ui-btn-a:after {
+  border-color: #38c;
+}
+input[type="radio"], input[type="checkbox"] {
+  margin-right: 10px;
+  opacity: 0;
+}
+.ui-input-text input, .ui-input-search input {
+    margin: 0;
+    height: 2em;
+    text-align: right;
+    border: 0;
+    background: transparent none;
+    -webkit-appearance: none;
+    -webkit-border-radius: inherit;
+    border-radius: inherit;
+}
+.ui-body-a, .ui-page-theme-a .ui-body-inherit, html .ui-bar-a .ui-body-inherit, html .ui-body-a .ui-body-inherit, html body .ui-group-theme-a .ui-body-inherit, html .ui-panel-page-container-a {
+    background-color: #fff;
+    border: 0px solid #FFF;
+    color: #666;
+    text-shadow: 0 1px 0 #f3f3f3;
+    width: 50px;
+    border-radius: 2px;
+    margin-left: calc(100% - 50px);
+    margin-top: 10px;
+    margin-bottom: -30px;
+    font-weight: bold;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+.sliderWrapper {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.ui-page-theme-a .ui-focus {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+.noUi-target {
+    border-radius: 0px;
+    border: 0px solid #FFF;
+    box-shadow: none;
+    top: 12px;
+}
+.noUi-origin {
+  border-radius: 0px;
+  background: #DEDEDE;
+}
+.noUi-background {
+  background: #f26868;
+  box-shadow: none;
+}
+.noUi-horizontal {
+    height: 4px;
+    width: 70%;
+}
+.noUi-horizontal .noUi-handle {
+    width: 40px;
+    height: 40px;
+    left: -18px;
+    top: -18px;
+}
+.controlContainer {
+  position: relative;
+}
+.noUi-handle:after, .noUi-handle:before {
+    content: "";
+    display: block;
+    position: absolute;
+    height: calc(100% - 6px);
+    width: calc(100% - 6px);
+    background: #DEDEDE;
+    left: 3px;
+    top: 3px;
+    border-radius: 2em;
+}
+.noUi-handle:after {
+    display: none;
+}
+.noUi-handle {
+  border: 3px solid #FFFFFF;
+  border-radius: 2em;
+  background: #DEDEDE;
+  cursor: default;
+  box-shadow: none;
+}
+.noUi-active {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+.ui-page-theme-a .ui-radio-on:after, html .ui-bar-a .ui-radio-on:after, html .ui-body-a .ui-radio-on:after, html body .ui-group-theme-a .ui-radio-on:after, .ui-btn.ui-radio-on.ui-btn-a:after {
+    border-color: #f26868;
+}
+
+
+
+    //-   #newControlContainer {
+    //-     background: #FFF;
+    //-     width: 500px;
+    //-     position: absolute;
+    //-     right: 0;
+    //-     top: 60px;
+    //-     padding: 10px 34px; 
+    //-     max-height: Calc(100% - 60px);
+    //-     overflow: scroll;     
+    //-   }
+
+.slideinput {
+  position: relative;
+  left: 0;
+  margin-right: 5px;
+  float: right;
+  top: 0px;
+  width: 65px;
+  border-radius: 0px;
+  height: 30px;
+  border: 1px solid #DEDEDE;
+}
+
+.cameraOptions {
+  text-align: center;
+  float: left;
+  margin-left: 50%;
+  margin-top: 30px;
+}
+
+.cameraOption {
+  width: 60px;
+  height: 60px;
+  background: #DEDEDE;
+  border: 1px solid #DEDEDE;
+  margin: 10px;
+  margin-left: -30px;
+  display: block;
+  span {
+    line-height: 0px;
+    font-size: 40px;
+    color: #FFFFFF;
+  }
+}
+
+.cameraOption.active {
+  border-color: $troveRed;
+  background: $troveRed;
+  span {
+    line-height: 0px;
+    font-size: 40px;
+    color: #FFFFFF;
+  }
+}
+
+
+
+input, select {
+  border: 1px solid #bfbfbf;
+  outline: 0;
+  left: 0px;
+  position: relative;
+  top: 0px;
+  font-size: 20px;
+  height: 40px;
+  padding: 10px 10px;
+  border-radius: 0px;
+  width: 100%;
+  background: rgb(255, 255, 255);
+  border: 1px solid #DEDEDE;
+}
+
+select {
+  margin: 0px 0px 30px -10px;
+}
+
+.sliderWrapper {
+  margin-top: 0px;
+  margin-bottom: 50px;
+}
+
+.cameraOption .mobi {
+  position: relative;
+  top: -4px;
+  color: #FFF;
+  font-weight: 400;
+  font-size: 90%;
+}
+
+@media (max-width: 991px) {
+  .cameraOptions {
+    text-align: center;
+    float: left;
+    margin-left: 0px;
+    margin-top: 0px;
+  }
+
+  h3 {
+    text-align: left;
+    margin-left: 10px;
+  }
+
+  .cameraOption {
+    float: left;
+    width: 40px;
+    height: 40px;;
+    font-size: 120%;
+    line-height: 30px;
+    font-weight: 600;
+    background: #DEDEDE;
+    border: 1px solid #DEDEDE;
+    margin: 10px;
+    margin-left: 10px;
+    span {
+      font-size: 30px;
+      display: block;
+    }
+    .mobi {
+      display: none;
+    }
+  }
+}
+
+
+.subsectionContainer {
+  display: none;
+}
+
+.subsectionContainer.channelselect, .subsectionContainer.active, .subsectionContainer.materialSelector {
+  display: block;
+}
+
+
+.mobile-control-select {
+  display: none;
+}
+
+
+// START HERE material classes added by Ian
+.subsectionContainer.mobileMaterials {
+    display: block;
+}
+.materialPanel .materialSectionDesktop {
+    display: block;
+}
+.materialPanel .materialSectionMobile {
+    display: none;
+}
+
+
+#saveButton, #nextButton {
+  float: right;
+}
+
+
+.slick-slide {
+  height: auto !important;
+}
+
+
+.step {
+  height: 275px !important;
+}
+
+
+h5 {
+  margin-top: 5px;
+}
+
+#newControlContainer {
+  height: 415px;
+}
+
+.icon::before {
+  line-height: 50px !important;
+}
+
+
+@media (max-width: 767px) {
+  .step {
+    height: auto !important;
+  }
+
+  .materialPanel .materialSectionDesktop {
+      display: none;
+  }
+  .materialPanel .materialSectionMobile {
+      display: block;
+  }
+  // END HERE material classes added by Ian
+
+  .sizehelp {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .content.controlContainer {
+    display: none;
+  }
+
+  .content.controlContainer.material_flattened_selection {
+    display: block;
+  }
+
+  .content.controlContainer.active {
+    display: block;
+  }
+
+  .mobile-control-select {
+    display: block;
+  }
+
+  .mobile-control-select.hide {
+    display: none;
+  }
+
+
+  #newControlContainer {
+    height: auto;
+    // display: none;
+  }
+  select {
+    margin: 0px 10px 15px -15px;
+  }
+
+  .steps {
+    margin: 0px;
+  }
+  .steps .step .thingy {
+    display: none;
+  }
+  #actions {
+    position: fixed;
+    top: 0px;
+    #saveButton {
+      position: fixed;
+      height: 70px;
+      width: 70px;
+      right: 0px;
+      top: 0px;
+      background: transparent;
+    }
+    #redoButton {
+      position: fixed;
+      height: 70px;
+      width: 70px;
+      left: 0px;
+      top: 0px;
+      background: transparent;
+    }
+    #homeButton {
+      display: block;
+      position: fixed;
+      height: 70px;
+      width: 70px;
+      left: 0px;
+      top: 60px;
+      background: transparent;
+    } 
+    #addtoButton {
+      display: block;
+      position: fixed;
+      height: 70px;
+      width: 70px;
+      right: 0px;
+      top: 60px;
+      background: transparent;
+    }
+  }
+  #top {
+    display: none;
+  }
+  #info {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  #cam {
+    display: none;
+  }
+  #con {
+    padding: 0px;
+  }
+  h1 {
+    font-size: 20px;
+    margin-bottom: 0px;
+  }
+  h2 {
+    font-size: 16px;
+    margin-top: 5px;
+  }
+  #controlContainer {
+    margin-top: 0px;
+  }
+  .mobilesteps.slick-initialized.slick-slider {
+    display: block;
+    &.final {
+      bottom: 60px;
+    }
+  }
+  .steps.slick-initialized.slick-slider {
+    margin-top: 0px;
+    background: #E2E2E2;
+  }
+
+  .slick-slide {
+    min-height: 0px;
+  }
+
+  #addButton {
+    position: fixed;
+    z-index: 100;
+    height: 60px;
+    width: 100%;
+    background: #DD2435;
+    color: #FFF;
+    padding: 0px;
+    border: 1px solid #DD2435;
+    bottom: 0px;
+    left: 0px;
+  }
+
+  #addButton.disabled {
+    bottom: -60px;
+  }
+
+  #controlContainer {
+    width: 100%;
+    height: auto;
+    border: 0px solid #DEDEDE;
+    background: #FFFFFF;
+    margin-top: 0px;
+    position: fixed;
+    bottom: 60px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+  }
+
+  #controlContainer {
+    &.final {
+      bottom: 120px;
+    }
+  }
+
+  .drop-label {
+    display: none;
+  }
+
+  .content-holder {
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    margin-top: 0px;
+    width: 100%;
+    background: #E2E2E2;
+    color: #666;
+    height: auto;
+    max-height: 200px;
+    line-height: 1em;
+    font-size: 12px;
+    padding: 15px 0px 0px 25px;
+  }
+
+  .content-holder.closed {
+    max-height: 0px;
+  }
+
+  .content {
+    height: auto;
+  }
+
+  .sliderWrapper {
+    padding: 10px;
+  }
+
+  #actions {
+    margin-left: 0px;
+    margin-right: 0px;
+    border: 0px solid transparent;
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    background: transparent;
+  }
+
+  #prevButton, #nextButton {
+    display: none !important;
+  }
+
+  #nextButton.slick-disabled, #prevButton.slick-disabled {
+    color: $troveGrayDisabled;
+  }
+  #canvas {
+    top: 200px;
+  }
+
+  .noUi-origin {
+    background: #FFFFFF;
+  }
+
+}
+
+
+@media (min-width: 992px) {
+  .col-md-pull-3 {
+    left: 0%;
+  }
+  #con {
+    margin: 0px 120px 0px 90px;
+  }   
+}
+
+@media (min-width: 1100px) {
+  #con {
+    margin: 0px 60px 0px 100px;
+  }
+}

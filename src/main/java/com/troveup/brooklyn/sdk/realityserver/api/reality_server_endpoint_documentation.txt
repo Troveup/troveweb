@@ -1,0 +1,220 @@
+TROVE TIGS API
+
+Rendering
+=========
+
+Request
+-------
+
+Requests are made by posting a JSON object to /render/submit. The content-type header must be 'application/json'
+
+Endpoint: /render/submit
+Verb: POST
+Content-type: application/json
+Body: JSON object
+
+{
+    "jobId": "330b1737-d602-4fee-9b0d-b78326bc768e",		// job ID, String, required
+    "UUID": "15b49693-a791-47b8-a3fd-82e22c7a8495",			// object UUID, String, required
+    "modelUrl": "http://fatbot:6060/justine-ring.obj",		// URL of model to download and render
+    "material": "gold",										// name of material to apply, String, required
+    "scene": "myscene",										// name of the scene to render the model in, String, required
+    "sceneCameras": ["persp"],								// cameras names to render, Array of Strings, OR camera details to render Array of Objects
+    "sceneCameras": [ {
+    					"name" : "cam1",					// name of camera, used to name the output image file, required
+    					"baseCamera" : "persp",				// name of existing camera in scene to copy initial settings from. if not specified uses default scene camera
+    					"transform" : {						// world to object space affine transformation matrix to apply to the camera. if not specified uses the baseCamera transform
+							"xx" : 1, "xy" : 0, "xz" : 0, "xw" : 0,
+							"yx" : 0, "yy" : 1, "yz" : 0, "yw" : 0,
+							"zx" : 0, "zy" : 0, "zz" : 1, "zw" : 0,
+							"wx" : 0, "wy" : 0, "wz" : 0, "ww" : 1
+						}
+    				} ],
+    "renderer": "irt",										// renderer to use 'irt' or 'iray', String, required
+    "cloudStorageBucket": "troveup-qa-cdn",					// bucket on Google Cloud Storage to upload renders to, String, required
+    "postBackUrl": "http://fatbot:5050",					// Url to postback results to, String, required
+    "width": "1000",										// Width of image to render, Integer, required
+    "height": "1000",										// Height of image to render, Integer, required
+    "max_time": 15,											// Maximum seconds to render for, Integer, optional, default 60
+    "max_samples": 100,										// Maximum # of samples to render, Integer, optional, default 100
+    "quality": 1,											// Quality based convergence for Iray, Float, optional, default none
+	"converged_pixel_ratio": 0.95,							// % of pixels that must be at converged quality, Float, optional, default 0.95
+	"modelTransform" : {									// world to object space affine transformation matrix to apply to the model. 4x4 matrix, optional, default identity
+		"xx" : 1, "xy" : 0, "xz" : 0, "xw" : 0,
+		"yx" : 0, "yy" : 1, "yz" : 0, "yw" : 0,
+		"zx" : 0, "zy" : 0, "zz" : 1, "zw" : 0,
+		"wx" : 0, "wy" : 0, "wz" : 0, "ww" : 1
+	}
+}
+
+On post the service validates the provided job and returns 2 possible responses.
+
+
+Response
+--------
+
+400: Body could not be parsed as a JSON object.
+
+200: Success. A JSON object as described below is returned.
+
+Response: application/json
+
+{
+	errorId: 0,												// Error code, Integer, defined below
+	errorMessage: "ok",										// Error string
+	errorData: null,										// Additional error data in certain error cases
+	response: {												// Response
+		jobId: "330b1737-d602-4fee-9b0d-b78326bc768e",		// jobId reflected from request
+		UUID: "15b49693-a791-47b8-a3fd-82e22c7a8495"		// UUID reflected from request
+	}
+}
+
+errorId will be one of the following:
+
+	0  : Success, rendering will be attempted.
+	-1 : Failure, request object contains errors. The exact issue is detailed in errorMessage.
+	-4 : Failure, cloudStorageBucket cannot be found.
+	-5 : Failure, scene cannot be found.
+
+If the 'response' object contains a jobId parameter then the postBackUrl will be called for this job. If it does not have a jobId parameter (in the case of error) then the postBackUrl will never be called as no rendering will be attempted.
+
+
+Postback
+--------
+
+After validation rendering is attempted and the postBackUrl called. Any further errors that occur will be communicated to the postback, not to the requesting client.
+
+postBackUrl receives an 'application/json' POST with the following JSON object as it's body:
+
+{
+	"errorId": 0,											// Error code, Integer, defined below
+	"errorMessage": "ok",									// Error string
+	"errorData": null,										// Additional error data in certain error cases
+	"cameras": {											// Object containing rendered cameras, properties are camera names
+		"persp" : {
+			"errorId": 0,									// Error code, Integer, defined below
+			"errorMessage": "ok",							// Error string
+			"errorData": null,								// Additional error data in certain error cases
+			"url": "http://troveup-qa-cdn.storage.googleapis.com/justine-ring-330b1737-d602-4fee-9b0d-b78326bc768e-persp.png",
+															// In no error case, the URL to download the image from
+			"filename": "justine-ring-330b1737-d602-4fee-9b0d-b78326bc768e-persp.png"
+															// Filename of the rendered image.
+		}
+	},
+	"jobId": "330b1737-d602-4fee-9b0d-b78326bc768e",		// jobId reflected from the request
+	"UUID": "15b49693-a791-47b8-a3fd-82e22c7a8495",			// UUID reflected from the request
+	"request": { ... }										// Reflected job request parameters.
+}
+
+The top level errorId indicates whether rendering as a whole succeeded or not:
+
+	0   : Success, all renders succeeded.
+	-2  : Failure in connecting to RealityServer.
+	-6  : Error loading scene into RealityServer.
+	-7  : Error loading material into RealitySever.
+	-8  : Error creating material in RealityServer.
+	-9  : Error downloading model.
+	-10 : Error loading model into RealityServer.
+	-11 : Error setting up a camera in RealityServer.
+
+On 0 the cameras property will be populated with results from each rendered camera. There is a per camera errorId which will be one of the following:
+
+	0  : Success, camera rendered and image uploaded to storage.
+	-3 : Image rendered but failed to upload to cloud storage.
+
+If errorId is 0 then the image can be downloaded from 'url'. Otherwise 'url' will be an empty string.
+
+
+Convergence Criteria
+--------------------
+
+There are 4 convergence criteria properties. The first 2 apply to both irt and iray render modes.
+
+max_time : maximum render time per image in seconds - default 10
+max_samples: maximum number of render iterations to perform - default 100
+
+Increasing either of these increases render time and quality. max_time is resolution dependent, a larger image will require more time to render. max_samples is resolution independent, for larger resolutions each iteration will take longer to compute than for smaller resolutions.
+
+There is also quality based convergence criteria that are only supported by iray. By default these are turned off and need to be enabled by providing the 'quality' parameter:
+
+quality: target image quality
+converged_pixel_ratio: percentage of pixels that must acheive 'quality' - default 0.95
+
+quality is a threshold at which a given pixel is considered converged. A value of 1 represents the default quality and it can be increased or decreased as required. Render time is roughly linear to quality, so doubling quality will double render time. It's maximum value is unbounded.
+
+converged_pixel_ratio represents how many pixels in the image should be converged to 'quality' level to consider the entire image converged. 1 means every pixel must have reached the required level. Default is 0.95.
+
+Note that all convergence criteria are taken into account and rendering completes when the first one is met. 
+
+
+Control
+=======
+
+Api is also provided to control RealityServer startup and shutdown. Note that this is only able to control RealityServer on the machine that the TIGS server is running on. It has the following requirements:
+
+1. RealityServer startup and shutdown is controlled by the 'realityserver' system service which must use the migenius 'watchdog' system to implement startup and shutdown.
+2. Only one RealityServer instance is run on the machine at a time.
+
+As the control system is 'watchdog' aware it will pick up if RealityServer has been started or stopped manually using the watchdog.
+
+The control system uses the following configuration values:
+
+rs_port - the port that the RealityServer http server listens on.
+mig_root - filesystem path to the directory containing watchdog control files.
+control_timeout - # of seconds to wait for RealityServer to be connectable on startup and for the process to die on shutdown.
+
+Api
+---
+
+All requests are made via GET and return the following JSON object:
+
+{
+	"status" : number,
+	"message" : string
+}
+
+Status will be one of the following:
+
+0 - RealityServer is stopped
+1 - RealityServer is starting
+2 - RealityServer is started
+3 - RealityServer is stopping
+4 - RealityServer is in an unknown state. This usually indicates that RealityServer is in the process of starting up but is not yet connectable
+5 - Error when starting up RealityServer.
+6 - Error when stopping RealityServer.
+7 - Timeout error when starting RealityServer.
+8 - Unknown error.
+9 - Stopping RealityServer failed.
+
+Endpoint: /control/start
+Verb: GET
+
+Starts RealityServer. Will return one of the following status codes:
+
+1 - Another call to /control/start is currently being processed.
+2 - RealityServer is started and connectable.
+3 - A call to /control/stop is currently being processed.
+5 - Attempting to start RealityServer failed.
+7 - RealityServer started but did not become connectable within the timeout period. RealityServer itself may or may not be running.
+
+Endpoint: /control/stop
+Verb: GET
+
+Stops RealityServer. Will return one of the following status codes:
+
+0 - Realityserver has stopped.
+1 - A call to /control/start is currently being processed.
+3 - Another call to /control/stop is currently being processed.
+6 - Attempting to stop RealityServer failed. RealityServer is likely still running and you should contact migenius to try and determine why it didn't stop.
+9 - The call to stop RealityServer succeeded however the process appeared to still be running within the timeout period. You should contact migenius to try and determine why it didn't stop.
+
+Endpoint: /control/status
+Verb: GET
+
+Returns the curent RealityServer status. 
+
+0 - Realityserver has stopped.
+1 - A call to /control/start is currently being processed.
+2 - Realityserver has started.
+3 - A call to /control/stop is currently being processed.
+4 - RealityServer is in an unknown state. It appears to be running but cannot be connected to.

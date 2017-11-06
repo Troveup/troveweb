@@ -1,0 +1,215 @@
+<beans profile="dev" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                           http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                           http://www.springframework.org/schema/security
+                           http://www.springframework.org/schema/security/spring-security.xsd
+                           http://www.springframework.org/schema/social/facebook
+                           http://www.springframework.org/schema/social/spring-social-facebook.xsd
+                           http://www.springframework.org/schema/social
+                           http://www.springframework.org/schema/social/spring-social.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd"
+        xmlns:social="http://www.springframework.org/schema/social"
+        xmlns:facebook="http://www.springframework.org/schema/social/facebook"
+        >
+
+    <!--TODO:  SPLIT THIS CONFIG AMONG SMALLER CONFIGS AND ORGANIZE IT: https://github.com/spring-projects/spring-social-samples/tree/master/attic/spring-social-showcase-xml/src/main/webapp/WEB-INF/spring-->
+
+    <!--NOTE: Component scan takes a long time to initialize.  We may lose traffic if our initialization time is
+    too big, according to Google:  https://cloud.google.com/appengine/articles/spring_optimization
+    However, it is extremely convenient, and doing without it is going to add extra development time to figure out.
+    If we start getting DeadlineExceededException when a new instance is spun up, we'll need to revisit this topic.-->
+    <context:component-scan base-package="com.troveup.brooklyn" />
+    <mvc:annotation-driven />
+    <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
+    <bean
+            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix">
+            <value>/WEB-INF/views/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception">error/error</prop>
+                <prop key="java.lang.RuntimeException">error/error</prop>
+            </props>
+        </property>
+        <property name="statusCodes">
+            <props>
+                <prop key="error/404">404</prop>
+                <prop key="error/error">500</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="pmfProxy" class="org.springframework.orm.jdo.TransactionAwarePersistenceManagerFactoryProxy">
+        <property name="targetPersistenceManagerFactory" ref="pmf"/>
+    </bean>
+
+    <bean id="pmf" class="org.springframework.orm.jdo.LocalPersistenceManagerFactoryBean" lazy-init="true">
+        <property name="jdoProperties">
+            <props>
+                <prop key="javax.jdo.PersistenceManagerFactoryClass">org.datanucleus.api.jdo.JDOPersistenceManagerFactory</prop>
+                <prop key="javax.jdo.option.ConnectionURL">jdbc:mysql://127.0.0.1:8889/troveweb</prop>
+                <prop key="javax.jdo.option.ConnectionUserName">root</prop>
+                <prop key="javax.jdo.option.ConnectionPassword"></prop>
+                <prop key="javax.jdo.option.ConnectionDriverName">com.mysql.jdbc.Driver</prop>
+                <prop key="datanucleus.autoCreateSchema">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--Property listing: https://commons.apache.org/proper/commons-dbcp/api-2.1/index.html-->
+    <bean id="datasource" class="org.apache.commons.dbcp.BasicDataSourceFactory" factory-method="createDataSource">
+        <constructor-arg name="properties">
+            <props>
+                <prop key="driverClassName">com.mysql.jdbc.Driver</prop>
+                <prop key="password"></prop>
+                <prop key="username">root</prop>
+                <prop key="url">jdbc:mysql://127.0.0.1:8889/troveweb</prop>
+            </props>
+        </constructor-arg>
+    </bean>
+
+    <!--Social config:
+    http://docs.spring.io/spring-social/docs/1.0.x/reference/html/connecting.html#section_connecting_service_providers
+    http://stackoverflow.com/questions/12687871/how-to-configure-spring-social-via-xml-->
+    <!--bean id="scopedTarget.connectionFactoryLocator"
+          class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
+        <property name="connectionFactories">
+            <list>
+                <bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+                    <constructor-arg value="${facebook.clientId}" />
+                    <constructor-arg value="${facebook.clientSecret}" />
+                </bean>
+            </list>
+        </property>
+    </bean-->
+
+    <bean id="usersConnectionRepository"
+          class="org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository">
+        <constructor-arg ref="datasource" />
+        <constructor-arg ref="connectionFactoryLocator" />
+        <constructor-arg ref="textEncryptor" />
+    </bean>
+
+    <bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors"
+          factory-method="noOpText">
+    </bean>
+
+    <bean class="com.github.vbauer.herald.processor.LogBeanPostProcessor" />
+
+    <bean name="transactionManager" class="org.springframework.orm.jdo.JdoTransactionManager">
+        <property name="persistenceManagerFactory" ref="pmf"/>
+    </bean>
+
+    <bean name="uAccessor" class="com.troveup.brooklyn.orm.user.datanucleus.UserAccessor"/>
+    <bean name="iAccessor" class="com.troveup.brooklyn.orm.item.datanucleus.ItemAccessor"/>
+
+    <!--Since we're not using Servlets 3.0 on App Engine, using XML based configuration.
+    Spring Security: http://spring.io/blog/2013/07/03/spring-security-java-config-preview-web-security/
+    http://www.petrikainulainen.net/programming/spring-framework/adding-social-sign-in-to-a-spring-mvc-web-application-configuration/-->
+    <bean name="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <constructor-arg name="strength" value="10"/>
+    </bean>
+
+    <bean name="userDetailsService" class="com.troveup.brooklyn.spring.UserDetailsService">
+        <constructor-arg ref="uAccessor"/>
+    </bean>
+
+    <bean name="socialUserDetailsService" class="com.troveup.brooklyn.spring.SocialUserDetailsService">
+        <constructor-arg ref="userDetailsService"/>
+    </bean>
+
+    <security:http security="none" pattern="/resources/**"/>
+    <security:http use-expressions="true">
+        <security:csrf />
+        <security:intercept-url pattern="/auth/**" access="permitAll"/>
+        <security:intercept-url pattern="/login" access="permitAll"/>
+        <security:intercept-url pattern="/signup/**" access="permitAll"/>
+        <security:intercept-url pattern="/signup/**" access="permitAll"/>
+        <security:intercept-url pattern="/user/register/**" access="permitAll"/>
+        <security:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+        <security:logout
+            logout-success-url="/login"
+            logout-url="/logout"
+            delete-cookies="JSESSIONID" />
+        <security:form-login
+            login-page="/login"
+            login-processing-url="/login/authenticate"
+            authentication-failure-url="/login?error=bad_credentials"/>
+        <security:custom-filter ref="socialAuthenticationFilter" before="PRE_AUTH_FILTER"/>
+    </security:http>
+
+    <!--
+        Configures the authentication manager bean which processes authentication
+        requests.
+    -->
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider user-service-ref="userDetailsService">
+            <security:password-encoder ref="passwordEncoder"/>
+        </security:authentication-provider>
+
+        <security:authentication-provider ref="socialAuthenticationProvider"/>
+    </security:authentication-manager>
+
+    <!--
+    Configures the social authentication provider which processes authentication requests
+    made by using supported social authentication services (FB, Twitter and so on).
+-->
+    <bean id="socialAuthenticationProvider" class="org.springframework.social.security.SocialAuthenticationProvider">
+        <constructor-arg index="0" ref="usersConnectionRepository"/>
+        <constructor-arg index="1" ref="socialUserDetailsService"/>
+    </bean>
+
+    <social:jdbc-connection-repository data-source-ref="datasource" encryptor-ref="textEncryptor"
+                                       user-id-source-ref="userIdSource"/>
+
+    <bean class="org.springframework.social.connect.web.ConnectController"/>
+
+    <!--Equivalent to a Facebook Connection Factory-->
+    <facebook:config app-id="${facebook.clientId}" app-secret="${facebook.clientSecret}" app-namespace="trove"/>
+
+    <context:property-placeholder location="META-INF/application.properties"/>
+
+    <!--File is copied into the proper classpath location when mvn makes war, originally kept at
+    WEB-INF/messages/-->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="com/troveup/brooklyn/spring/messages/messages"/>
+        <property name="useCodeAsDefaultMessage" value="true"/>
+    </bean>
+
+    <!--
+    Configures the social authentication filter which integrates Spring Social
+    with Spring Security.
+-->
+    <bean id="socialAuthenticationFilter" class="org.springframework.social.security.SocialAuthenticationFilter">
+        <constructor-arg index="0" ref="authenticationManager"/>
+        <constructor-arg index="1" ref="userIdSource"/>
+        <constructor-arg index="2" ref="usersConnectionRepository"/>
+        <constructor-arg index="3" ref="connectionFactoryLocator"/>
+
+        <!-- Sets the url of the registration form. -->
+        <property name="signupUrl" value="/user/register"/>
+    </bean>
+
+    <!--
+    This bean determines the account ID of the user. The example application
+    uses the email as the account ID.
+-->
+    <bean id="userIdSource" class="org.springframework.social.security.AuthenticationNameUserIdSource"/>
+
+</beans>

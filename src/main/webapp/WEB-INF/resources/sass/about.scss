@@ -1,0 +1,23 @@
+  .panel-default {
+    text-align: left;
+  }
+  .panel-default>.panel-heading {
+    color:  #333;
+    text-decoration: none;
+    background-color: #DEDEDE;
+    border: 0px solid #FFF;
+    line-height: 1.5em;
+  }
+
+  .panel-default>.panel-heading+.panel-collapse>.panel-body {
+    border-top-color: #ddd;
+    color: #7A7A7A;
+  }
+
+  .panel-default>.panel-heading a:hover {
+    text-decoration: none;
+  }
+
+  .panel-default>.panel-heading a:focus {
+    text-decoration: none;
+  }

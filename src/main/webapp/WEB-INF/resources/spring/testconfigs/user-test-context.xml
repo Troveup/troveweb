@@ -1,0 +1,90 @@
+<beans profile="dev" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.0.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+    <bean id="pmfProxy" class="org.springframework.orm.jdo.TransactionAwarePersistenceManagerFactoryProxy">
+        <property name="targetPersistenceManagerFactory" ref="pmf"/>
+    </bean>
+
+    <bean id="pmf" class="org.springframework.orm.jdo.LocalPersistenceManagerFactoryBean" lazy-init="true">
+        <property name="jdoProperties">
+            <props>
+                <prop key="javax.jdo.PersistenceManagerFactoryClass">org.datanucleus.api.jdo.JDOPersistenceManagerFactory</prop>
+                <prop key="javax.jdo.option.ConnectionURL">jdbc:mysql://127.0.0.1:8889/troveweb</prop>
+                <prop key="javax.jdo.option.ConnectionUserName">root</prop>
+                <prop key="javax.jdo.option.ConnectionPassword"></prop>
+                <prop key="javax.jdo.option.ConnectionDriverName">com.mysql.jdbc.Driver</prop>
+                <prop key="datanucleus.autoCreateSchema">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--Property listing: https://commons.apache.org/proper/commons-dbcp/api-2.1/index.html-->
+    <bean id="datasource" class="org.apache.commons.dbcp.BasicDataSourceFactory" factory-method="createDataSource">
+        <constructor-arg name="properties">
+            <props>
+                <prop key="driverClassName">com.mysql.jdbc.Driver</prop>
+                <prop key="password"></prop>
+                <prop key="username">root</prop>
+                <prop key="url">jdbc:mysql://127.0.0.1:8889/troveweb</prop>
+            </props>
+        </constructor-arg>
+    </bean>
+
+    <!--Social config:
+    http://docs.spring.io/spring-social/docs/1.0.x/reference/html/connecting.html#section_connecting_service_providers
+    http://stackoverflow.com/questions/12687871/how-to-configure-spring-social-via-xml-->
+    <bean id="connectionFactoryLocator"
+          class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
+        <property name="connectionFactories">
+            <list>
+                <bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+                    <constructor-arg value="${facebook.clientId}" />
+                    <constructor-arg value="${facebook.clientSecret}" />
+                </bean>
+            </list>
+        </property>
+    </bean>
+    <bean id="usersConnectionRepository"
+          class="org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository">
+        <constructor-arg ref="datasource" />
+        <constructor-arg ref="connectionFactoryLocator" />
+        <constructor-arg ref="textEncryptor" />
+    </bean>
+
+    <bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors"
+          factory-method="noOpText">
+    </bean>
+
+    <beans profile="prod">
+        <bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors"
+              factory-method="text">
+            <constructor-arg value="${security.encryptPassword}" />
+            <constructor-arg value="${security.encryptSalt}" />
+        </bean>
+    </beans>
+
+    <bean class="com.github.vbauer.herald.processor.LogBeanPostProcessor" />
+
+    <bean name="transactionManager" class="org.springframework.orm.jdo.JdoTransactionManager">
+        <property name="persistenceManagerFactory" ref="pmf"/>
+    </bean>
+
+    <bean name="uAccessor" class="com.troveup.brooklyn.orm.user.datanucleus.UserAccessor"/>
+    <bean name="iAccessor" class="com.troveup.brooklyn.orm.item.datanucleus.ItemAccessor"/>
+    <bean name="userDetailsService" class="com.troveup.brooklyn.spring.UserDetailsService"/>
+
+</beans>

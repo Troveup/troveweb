@@ -1,0 +1,49 @@
+
+// global vars
+$bgColor: 					#FFFFFF;
+$btnTextColor: 				#FFFFFF;
+$header-font-family:   		'Raleway', sans-serif;
+$button-font-family:   		'Raleway', sans-serif;
+$trove-red:             	#F26868;
+$brand-bg-gray:          	#F0F0F0 !default; 
+$brand-primary:          	#F26868 !default;  
+
+//== Media queries breakpoints
+$screen-xs:                  480px !default;         // Extra small screen / phone
+$screen-xs-min:              $screen-xs !default;
+$screen-phone:               $screen-xs-min !default;
+$screen-sm:                  768px !default;         // Small screen / tablet
+$screen-sm-min:              $screen-sm !default;
+$screen-tablet:              $screen-sm-min !default;
+$screen-md:                  992px !default;      // Medium screen / desktop
+$screen-md-min:              $screen-md !default;
+$screen-desktop:             $screen-md-min !default;
+$screen-lg:                  1200px !default;     // Large screen / wide desktop
+$screen-lg-min:              $screen-lg !default;
+$screen-lg-desktop:          $screen-lg-min !default;
+
+// So media queries don't overlap when required, provide a maximum
+$screen-xs-max:              ($screen-sm-min - 1) !default;
+$screen-sm-max:              ($screen-md-min - 1) !default;
+$screen-md-max:              ($screen-lg-min - 1) !default;
+
+// border radius
+$buttonBorderRadius:          2px;
+$cardBorderRadius:            2px;
+$containerBorderRadius:       0px;
+$formBorderRadius:            0px;
+$tabBorderRadius:             0px;
+
+// Auth
+$authButtonBorderRadius:      $buttonBorderRadius;
+$authFormBorderRadius:        $formBorderRadius;
+$authTabsBorderRadius:		  $tabBorderRadius;
+$authContainerBorderRadius:   $containerBorderRadius;
+// Cards
+$cardButtonBorderRadius:      $cardBorderRadius;
+// Modals
+$modalBorderRadius:           $containerBorderRadius;
+
+// CARDS
+// Item Cards    
+$itemCardHeight:              356px;

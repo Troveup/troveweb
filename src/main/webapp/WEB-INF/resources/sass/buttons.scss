@@ -1,0 +1,138 @@
+@import 'palette';
+@import 'variables';
+@import 'mixins';
+
+.btn {
+  font-size: 14px;
+  font-weight: normal;
+  cursor: pointer;
+  background-color: $troveGray;
+  color: #fff;
+  padding: 5px 20px;
+  line-height: 1.4em;
+  box-sizing: border-box;
+  border: 0px solid transparent;
+  text-decoration: none;
+  @include border-radius($cardBorderRadius);
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  opacity: 1;
+  @include transition(all 0.30s ease-in-out);
+  &:hover {
+    text-decoration: none;
+    background-color: $troveGrayLight;
+    color: #fff;
+    outline: 0;
+  }
+  &:focus {
+    text-decoration: none;
+    background-color: $troveGrayLight;
+    color: #fff;
+    outline: 0;
+  }
+  &.btn_unfollow {
+    width: 160px;
+    @include gray-button();
+  }
+  &.btn_follow {
+    width: 160px;
+    @include red-button();
+  }
+  &.btn_buy {
+    @include gray-button();
+  }
+  &.btn_trove {
+    @include red-button();
+  }
+  &.btn_customize {
+    @include red-button();
+  }
+  &.btn_save {
+    @include red-button();
+  }
+  &.btn_login {
+    @include gray-outlined-button();
+  }
+  &.btn_signup {
+    @include red-border-button();
+  }
+  &.finalSale {
+    @include red-button();
+  }
+  &.btn--darkgray {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+  }
+  &.btn--product--description {
+    width: 150px;
+    font-size: 14px;
+    padding: 10px 0 10px;
+  }
+  &.btn--red {
+    @include red-button();
+  }
+  &.btn_med {
+    padding: 10 20 10;
+  }
+  &.btn_ghost_hero {
+    @include red-border-button();
+    font-size: 14px;
+    border:2px solid #ffffff;
+     
+
+    &.btn_ghost_hero_dark {
+    font-size: 14px;
+    color: #232323;
+    background-color:transparent;
+    border:1px solid #232323;
+  }
+  }
+  &.btn_big {
+    width: 280px;
+    padding: 15px;
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    &.btn_really_big {
+      width: 360px;
+      padding: 13px;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+    }
+    &.btn_big_red {
+      margin-bottom: 15px;
+      margin-top: 10px;
+      @include red-button();
+      margin-left: auto;
+      margin-right: auto;
+    }
+    &.btn_big_gray {
+      margin-top: -12px;
+      margin-bottom: 10px;
+      @include gray-button();
+      margin-left: auto;
+      margin-right: auto;
+    }
+    &.btn_big_darkergray {
+      @include dark-gray-button();
+      margin-bottom: 15px;
+      margin-top: 10px;
+      margin-left: auto;
+      margin-right: auto;
+  }
+  }
+}
+
+.styled-select select {
+  background: transparent;
+  width: 268px;
+  padding: 5px;
+  font-size: 16px;
+  line-height: 1.5em;
+  border: 1px solid #DEDEDE;
+  border-radius: 0;
+  height: 34px;
+  -webkit-appearance: none;
+}

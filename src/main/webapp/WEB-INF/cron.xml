@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+    <cron>
+        <url>/worker/curaterenderqueue</url>
+        <description>Curate the render queue</description>
+        <schedule>every 1 minutes</schedule>
+    </cron>
+    <cron>
+        <url>/worker/curatefreeftuerequests</url>
+        <description>Curate the free renders to submit for rendering</description>
+        <schedule>every 1 minutes</schedule>
+    </cron>
+    <cron>
+        <url>/worker/curatecompletedfreeftuerequests</url>
+        <description>Curate the free renders to update fully rendered FTUE item statuses</description>
+        <schedule>every 1 minutes</schedule>
+    </cron>
+    <cron>
+        <url>/worker/curateemailreadyfreeftuerequests</url>
+        <description>Curate the free renders to send e-mails with unique links to users</description>
+        <schedule>every 1 minutes</schedule>
+    </cron>
+</cronentries>

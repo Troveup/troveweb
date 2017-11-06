@@ -1,0 +1,148 @@
+Startup
+-------
+CLI is here:  https://github.com/nimbix/nacc_cli/blob/master/nacc.cli
+Instance startup is performed by posting a JSON file to the /nimbix/nacc_upload21 URL.
+
+The JSON is structured as follows:
+
+{
+  "files": [],
+  "application": {
+    "parameters": {
+      "USER_NAE": "TIGS_RealityServer",
+      "sub-commands": {}
+    },
+    "name": "nae_12c24-2m2090",
+    "command": "start"
+  },
+  "customer": {
+    "username": "trove_nimbix",
+    "email": "brian@troveprint.com",
+    "api-key": "INSERT_YOUR_API_KEY_HERE",
+    "notifications": {
+      "sms": {},
+      "email": {
+        "brian@troveprint.com": {
+          "messages": {
+            "TransferStart": "yes",
+            "JobSubmitted": "yes",
+            "JobStarted": "yes",
+            "JobEnded": "yes"
+          }
+        }
+      }
+    }
+  },
+  "api-version": "2.1"
+}
+
+application.parameters.USER_NAE is the NAE type you want to startup.
+application.name is the type of hardware you want to use,.
+customer is your credential information. Make sure you put your actual api key in here.
+
+Additionally, if you have requested a static IP from nimbix you can specify it in application.parameters.ipaddress. EG:
+
+{
+  "files": [],
+  "application": {
+    "parameters": {
+      "USER_NAE": "TIGS_RealityServer",
+      "ipaddress": "192.168.3.1",
+      "sub-commands": {}
+    },
+    "name": "nae_12c24-2m2090",
+    "command": "start"
+  },
+  "customer": {
+    "username": "trove_nimbix",
+    "email": "brian@troveprint.com",
+    "api-key": "INSERT_YOUR_API_KEY_HERE",
+    "notifications": {
+      "sms": {},
+      "email": {
+        "brian@troveprint.com": {
+          "messages": {
+            "TransferStart": "yes",
+            "JobSubmitted": "yes",
+            "JobStarted": "yes",
+            "JobEnded": "yes"
+          }
+        }
+      }
+    }
+  },
+  "api-version": "2.1"
+}
+
+Note that it is up to you to ensure you only start one instance at a time with the same static IP.
+
+You can post the JSON using curl:
+
+$ curl --insecure https://api.nimbix.net:4081/nimbix/nacc_upload21 -X POST --data @start_rs -H "Content-Type: application/json"
+
+Which will return the following on success:
+
+{"status":"Request Validated","job_name":"20150528091336-14153-nae_12c24-2m2090-trove_nimbix_s1"}
+
+The call returns immediately and the job_name is used to manage the instance. Startup also creates a file named as follows in your drop.nimbix.net sftp site:
+
+'/data/JARVICE-BUILD-NAE-' . job_name . '.txt'
+
+You can poll the contents of this file to see when startup is complete:
+
+$ sftp trove_nimbix@drop.nimbix.net:/data/JARVICE-BUILD-NAE-20150528091336-14153-nae_12c24-2m2090-trove_nimbix_s1.txt
+
+While the instance is still starting up it will have the contents 'Starting up, Press close and try again soon'. Or something very similar, it's the same text that displays in the dashboard when you try and get instance information while it's starting up.
+
+Once the instance has finished starting the file will contain the IP and password for the machine:
+
+NAE Address: 8.39.209.163
+NAE root/nimbix Password: errCiweklj343
+
+At this stage you can start hitting the IP and performing renders.
+
+Even if you specify a static IP you need to poll to see when startup has actually completed. This is typically less than a minute.
+
+
+Shutdown
+--------
+
+To shutdown the instance you need to know it's job number which unfortunately isn't returned in the startup data. You can find this by posting the following to their status api:
+
+{
+  "username" : "trove_nimbix",
+  "api-key": "INSERT_YOUR_API_KEY_HERE",
+  "request" : "status",
+  "job_name": "20150528091336-14153-nae_12c24-2m2090-trove_nimbix_s1"
+}
+
+$ curl --insecure https://api.nimbix.net:4081/nimbix/nacc_jstatus -X POST --data @get_status -H "Content-Type: application/json"
+
+Which will return something like the following:
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>> Nimbix Job <<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Job Name       20150528091336-14153-nae_12c24-2m2090-trove_nimbix_s1
+Job Number     26359
+Application    nae_12c24-2m2090
+Job Owner      trove_nimbix
+Job Status     PROCESSING STARTING
+Accept Time    Thu May 28 09:13:36 2015
+Submit Time    Thu May 28 09:13:39 2015
+Download Start Thu May 28 09:13:38 2015
+Download End   Thu May 28 09:13:38 2015
+File Size      1
+Start Time     Thu May 28 09:13:39 2015
+End Time       Wed Dec 31 18:00:00 1969
+Error Message
+Exit Code      0
+CPU Time
+Wall Time
+Total Time     0
+
+The Job Number is what you are after.
+
+You can now delete the job. Just to be different this is done by a get request rather than a post:
+
+$ curl --insecure 'https://api.nimbix.net:4081/nimbix/nacc_jobDel?user=trove_nimbix&apikey=INSERT_YOUR_API_KEY_HERE&jobnumber=26359'
+
+After deleting you can check the status again to confirm it has shutdown. The Job Status will become COMPLETED.

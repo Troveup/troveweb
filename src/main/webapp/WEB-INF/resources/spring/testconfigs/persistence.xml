@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence
+        xmlns="http://java.sun.com/xml/ns/persistence"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+        version="1.0">
+
+    <persistence-unit name="TroveWeb">
+        <class>com.troveup.brooklyn.orm.user.models.User</class>
+        <class>com.troveup.brooklyn.orm.user.models.Collection</class>
+        <class>com.troveup.brooklyn.orm.user.models.Follow</class>
+        <class>com.troveup.brooklyn.orm.item.model.Item</class>
+        <class>com.troveup.brooklyn.orm.general.models.ObjectAttribute</class>
+        <class>com.troveup.brooklyn.orm.general.models.ObjectAttributeDefinition</class>
+        <exclude-unlisted-classes/>
+        <properties>
+            <property name="javax.jdo.option.ConnectionUserName" value="root" />
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:8889/troveweb" />
+            <property name="datanucleus.autoCreateSchema" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>

@@ -1,0 +1,14 @@
+<queue-entries>
+    <queue>
+        <name>sessionqueue</name>
+        <rate>20/s</rate>
+        <bucket-size>40</bucket-size>
+        <max-concurrent-requests>10</max-concurrent-requests>
+    </queue>
+    <queue>
+        <name>objectupdatequeue</name>
+        <rate>20/s</rate>
+        <bucket-size>40</bucket-size>
+        <max-concurrent-requests>10</max-concurrent-requests>
+    </queue>
+</queue-entries>

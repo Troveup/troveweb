@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+    <cron>
+        <url>/worker/curaterenderqueue</url>
+        <description>Curate the render queue</description>
+        <schedule>every 1 minutes</schedule>
+    </cron>
+    <!--cron>
+        <url>/worker/curatefreeftuerequests</url>
+        <description>Curate the free renders to submit for rendering</description>
+        <schedule>every 5 minutes</schedule>
+    </cron>
+    <cron>
+        <url>/worker/curatecompletedfreeftuerequests</url>
+        <description>Curate the free renders to update fully rendered FTUE item statuses</description>
+        <schedule>every 5 minutes</schedule>
+    </cron>
+    <cron>
+        <url>/worker/curateemailreadyfreeftuerequests</url>
+        <description>Curate the free renders to send e-mails with unique links to users</description>
+        <schedule>every 5 minutes</schedule>
+    </cron-->
+    <cron>
+        <url>/worker/renderqueuewatchdog</url>
+        <description>Watchdog timer to make sure that render queue items aren't stalled</description>
+        <schedule>every 1 minutes</schedule>
+    </cron>
+    <cron>
+        <url>/worker/curatefeed</url>
+        <description>Curate the feed items and update their feed rank scores</description>
+        <schedule>every 1 minutes</schedule>
+    </cron>
+    <cron>
+        <url>/worker/feedcurationwatchdog</url>
+        <description>Watchdog to reset the feed curation, in case something bad happens</description>
+        <schedule>every 1 minutes</schedule>
+    </cron>
+    <cron>
+        <url>/worker/curatemodeluploads</url>
+        <description>Curate uploaded models and check their statuses to to see if they are valid uploads.</description>
+        <schedule>every 10 minutes</schedule>
+    </cron>
+    <cron>
+        <url>/worker/curatependingordersubmissions</url>
+        <description>Curate all uploaded orders and submit those that are complete to Shapeways.</description>
+        <schedule>every 10 minutes</schedule>
+    </cron>
+    <cron>
+        <url>/worker/curateprintorders</url>
+        <description>Curate print orders that have been sent to Shapeways, and update their statuses with Trove.</description>
+        <schedule>every 20 minutes</schedule>
+    </cron>
+    <cron>
+        <url>/worker/curateoutstandingprototypes</url>
+        <description>Curate prototypes that are marked as having been delivered to users and deal with them accordingly.</description>
+        <schedule>every 25 minutes</schedule>
+    </cron>
+    <cron>
+        <url>/worker/settleorders</url>
+        <description>Submit outstanding orders for settlement with Braintree so that Trove may acquire dolla billz.</description>
+        <schedule>every 10 minutes</schedule>
+    </cron>
+    <cron>
+        <url>/worker/curategiftcardemails</url>
+        <description>Sends e-mails out to people who should receive digital gift cards once daily</description>
+        <schedule>every 1 hours</schedule>
+    </cron>
+</cronentries>

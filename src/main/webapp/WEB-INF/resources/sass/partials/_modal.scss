@@ -1,0 +1,66 @@
+.modal-backdrop {
+  background-color: #FFF;
+}
+
+.modal-backdrop.in {
+  filter: alpha(opacity=85);
+  opacity: .85;
+}
+
+.modal-content {
+  @include modal-style();
+  border: 2px solid #dedede;
+}
+
+.modal-header {
+  border-bottom: 0px solid #dedede;
+  padding: 20px;
+}
+
+h4.modalHeadline {
+  font-size: 20px;
+  line-height: 1.25em;
+  margin-top: 0px;
+  max-width: 400px;
+  display: inline-block;
+}
+
+.modal-header .closeModal {
+  position: absolute;
+  font-size: 24px;
+  padding: 5px;
+  right: 8px;
+  top: 8px;
+  font-family: 'Ionicons';
+  i {
+    color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+.modal-header .closeModal:hover {
+  i {
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+p.modalText {
+  margin: 0 0 30px 0px;
+}
+
+span.micromessage {
+  display: block;
+  font-style: italic;
+}
+
+.break {
+  width: 80%;
+  margin-left: 10%;
+  height: 3px;
+  background-color: #DAD5D5;
+}
+
+.modal-footer {
+  padding: 20px 0px 30px 20px;
+  text-align: center;
+  border-top: 0px solid #DEDEDE;
+}

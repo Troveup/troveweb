@@ -1,0 +1,642 @@
+// IMPORTS
+@import 'palette';
+@import 'variables';
+@import 'mixins';
+@import 'partials/modal';
+
+// GLOBAL STUFF
+// html {
+//   width: 100%;
+// }
+
+// body {
+//   width: 100%;
+//   overflow-x: hidden;
+//   background: $troveOffWhite;
+// }
+
+// button:focus {
+//   outline:0 !important;
+// }
+
+// a {
+//   @include transition(color 0.25s);
+// }
+
+// form {
+//   margin-bottom: 6px;
+// }
+
+// .btn {
+//   @include transition(background-color 0.25s);
+//   border: 0px solid transparent;
+// }
+
+// input.form-control {
+//   outline: 0;
+//   font-family: 'Raleway', sans-serif;
+//   display: inline-block;
+//   height: 40px;
+//   padding: 6px 12px;
+//   font-size: 15px;
+//   line-height: 1.42857143;
+//   color: $troveGrayDark;
+//   background-color: #fff;
+//   background-image: none;
+//   @include border-radius($authFormBorderRadius);
+//   -webkit-box-shadow: none;
+//   box-shadow: none;
+//   margin-bottom: 5px;
+//   &:focus {
+//     outline: 0;
+//     -webkit-box-shadow: none;
+//     box-shadow: none;
+//   }
+// }
+
+// // AUTH PAGES STUFF
+// .videoRow {
+//   display: none;
+//   video {
+//     position: fixed;
+//     top: 50%;
+//     left: 50%;
+//     min-width: 100%;
+//     min-height: 100%;
+//     width: auto;
+//     height: auto;
+//     z-index: -100;
+//     -webkit-transform: translateX(-50%) translateY(-50%);
+//     transform: translateX(-50%) translateY(-50%);
+//     background: url(https://storage.googleapis.com/troveup-imagestore/assets/video/trove-vid.jpg) no-repeat;
+//     background-size: cover;
+//   }
+// }
+    
+
+.auth-content {
+  display: table;
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+  z-index: 1;
+  padding: 0px;
+  .auth-content-inner {
+    display: table-cell;
+    vertical-align: middle;
+    .auth-form {
+      background: $troveOffWhite;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 500;
+      padding: 20px 0px 20px;
+      text-align: center;
+      width: 300px;
+      max-width: 100%;
+      margin: 0 auto;
+        -webkit-box-shadow: none;
+           -moz-box-shadow: none;
+                box-shadow: none;
+      h2 {
+        font-family: "Raleway", 'Helvetica', sans-serif;
+        font-size: 19px;
+        margin-top: -10px;
+        margin-bottom: 10px;
+        line-height: 1.5em;
+      }
+      h3 {
+        font-size: 14px;
+        font-weight: 300;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        line-height: 1.5em;
+      }
+      h5 {
+        text-align: center;
+        line-height: 1.5em;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.05em;
+        a {
+          text-decoration: underline;
+        }
+      }
+      input.form-control {
+        border: 1px solid #D8D8D8;
+        width: 228px;
+        font-weight: 400;
+        letter-spacing: 0.05em;
+        &:focus {
+          border: 1px solid $troveGray;
+        }
+      }
+      .has-feedback {
+        width: 228px;
+        position: relative;
+        display: inline-block;
+        &.form-control {
+
+        }
+      }
+      .auth-logo {
+        display: block;
+        margin: -10px auto 15px auto;
+        width: 140px;
+        // height: 63px;
+      }
+      .orblock {
+        background-image: url("/resources/img/or.png");
+        background-repeat: no-repeat;
+        font-family: 'Raleway', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-shadow: rgba(0,0,0,.01) 0 0 1px;
+        margin-bottom: 10px;
+        display: inline-block;
+        width: 228px;
+        font-size: 90%;
+        background-position: -26px 1px;
+        color: #7D7B7B;
+        opacity: 0.5;
+      }
+      .sib {
+        color: #333;
+        font-family: 'Raleway', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-shadow: rgba(0,0,0,.01) 0 0 1px;
+        font-size: 17px;
+        margin-top: 25px;
+        a {
+          text-decoration: underline;
+          &:hover { }
+        }
+      }
+      a.fgpassword {
+        font-family: 'Raleway', sans-serif;
+        font-weight: 500;
+        font-size: 11px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+      }
+      a.bgpassword {
+        font-family: 'Raleway', sans-serif;
+        font-weight: 500;
+        font-size: 15px;
+        margin-top: 0px;
+        margin-bottom: 30px;
+        display: block;
+      }
+      .stormy {
+        background-color: #FFF;
+        margin-right: 0px;
+        margin-left: 0px;
+        margin-bottom: -2em;
+        padding: 20px 1em;
+        border-right: 1px solid $troveGrayBorder;
+        border-left: 1px solid $troveGrayBorder;
+        border-bottom: 1px solid $troveGrayBorder;
+      }
+      .auth-tabs {
+        margin-right: 0px;
+        margin-left: 0px;
+        .nav.nav-tabs.nav-justified > li {
+          display: table-cell;
+          width: 1%;
+          a {
+            color: $troveGray;
+            @include border-radius($authTabsBorderRadius);
+            border-bottom: 1px solid $troveGrayBorder;
+            margin-bottom: -1px;
+            font-weight: 300;
+            font-size: 115%;
+            font-weight: 400;
+            font-size: 115%;
+            padding-top: 14px;
+            &:hover {
+              color: $troveGrayDark;
+              background-color: transparent;
+              margin-bottom: -1px;
+              border-color: transparent;
+              border-bottom: 1px solid $troveGrayBorder;
+              cursor: pointer;
+            }
+            &:focus {
+              color: $troveGrayDark;
+              background-color: transparent;
+              margin-bottom: -1px;
+              border-color: transparent;
+              border-bottom: 1px solid $troveGrayBorder;
+              cursor: pointer;
+            }
+          }
+        } 
+        .nav-tabs.nav-justified {
+          li.active {
+            a {
+              color: $troveRed;
+              background-color: #FFF;
+              @include border-radius($authTabsBorderRadius);
+              margin-bottom: -1px;
+              border-bottom: 1px solid #FFF;
+              &:hover {
+                color: $troveRed;
+                background-color: #FFF;
+                margin-bottom: -1px;
+                border-color: $troveGrayBorder;
+                border-bottom-color: #FFF;
+                cursor: pointer;
+              }
+              &:focus {
+                color: $troveRed;
+                background-color: #FFF;
+                margin-bottom: -1px;
+                border-color: $troveGrayBorder;
+                border-bottom-color: #FFF;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
+      .btn {
+        font-family: 'Raleway', sans-serif;
+        height: 40px;
+        padding: 0 15px;
+        line-height: 38px;
+        color: $btnTextColor;
+        border-color: transparent;
+        @include border-radius($authButtonBorderRadius);
+        font-size: 15px;
+        &.btn-si {
+          width: 160px;
+          background-color: $troveRed;
+          margin-bottom: 13px;
+          margin-top: 13px;
+          &:hover {
+            background-color: $troveRedHighlight;
+          }
+        }
+        &.btn-fb {
+          width: 228px;
+          background-image: url("/resources/img/fb.svg");
+          background-position: 15px 7px;
+          background-color: $facebookBlue;
+          padding-left: 40px;
+          background-repeat: no-repeat;
+          margin-bottom: 10px;
+          margin-top: 10px;
+          &:hover {
+            background-image: url("/resources/img/fb.svg");
+            background-color: $facebookBlueHighlight;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+// animations
+// auth fadein
+@include keyframes('authfadein') {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.auth-form {
+  @include animation('authfadein 0.5s');
+}
+
+// RESPONSIVE STUFF via media queries
+// these styles get show on any device with a screen width of 440px or wider
+@media screen and (min-width: 440px) {
+  .videoRow {
+    display: block; 
+  }
+  .auth-content {
+    padding-top: 10px;
+    padding-bottom: 40px;
+    .auth-content-inner {
+      .auth-form {
+        padding: 2.5em 2.5em 2em;
+        max-width: none;
+        width: auto;
+        -webkit-box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.175);
+           -moz-box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.175);
+                box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.175);
+        background: rgba(255, 255, 255, 0.9);
+        @include border-radius($authContainerBorderRadius);
+        h2 { }
+        h3 { }
+        input.form-control {
+          width: 280px;
+        }
+        .auth-logo { 
+          margin-top: 0px;
+          margin: 0px auto 30px auto;
+        }
+        .orblock {
+          width: 280px;
+          background-position: 0px 1px;
+          margin-bottom: 20px;
+        }
+        .has-feedback {
+          width: 280px;
+          position: relative;
+          display: inline-block;
+        }
+        .btn {
+          &.btn-si { 
+            margin-bottom: 20px;
+            margin-top: 15px;
+            &:hover { } 
+          }
+          &.btn-email {
+            margin-bottom: 20px;
+            margin-top: 15px;
+            width: 280px;
+            &:hover { }
+          }
+          &.btn-fb {
+            width: 280px;
+            background-position: 40px 7px;
+            margin-bottom: 20px;
+            margin-top: 15px;
+            &:hover { }
+          }
+        }
+        .stormy {
+          margin-right: -2.5em;
+          margin-left: -2.5em;
+          padding: 60px 2.5em;
+        }
+        .auth-tabs {
+          margin-right: -2.5em;
+          margin-left: -2.5em;
+        }
+      }
+    }
+  }
+}
+
+// hide headlines on mobile since not enough space
+@media screen and (max-width: 441px) {
+  .auth-content {
+    .auth-content-inner {
+      .auth-form {
+        h2 { display: none; }
+        h3 { display: none; }
+      }
+    }
+  }
+}
+
+
+// FORM & VALIDATIONS & ERROR STUFF
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+input:focus:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+.has-feedback {
+  input.form-control:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+  }
+  input.form-control:focus:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+  }
+}
+
+#error {
+  color: $troveRedHighlight;
+  letter-spacing: 0.05em;
+  margin-bottom: 15px;
+  margin-top: 0px;
+}
+
+#errorr {
+  color: $troveRedHighlight;
+  letter-spacing: 0.05em;
+  margin-bottom: 15px;
+  margin-top: 0px;
+}
+
+// overriding glyphicons with ionicons for jquery form validation icons
+.glyphicon {
+  position: absolute;
+  top: 3px;
+  right: 2px;
+  display: inline-block;
+  font-family: 'Ionicons';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 34px;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.glyphicon-remove {
+  color: $verifyRed;
+}
+.glyphicon-ok {
+  color: $verifyGreen;
+}
+.help-block {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: $troveRedHighlight;
+  letter-spacing: 0.05em;
+}
+.glyphicon-remove:before {
+    content: "\f2d7";
+}
+.glyphicon-ok:before {
+    content: "\f383";
+}
+
+#optin {
+  width: 40px;
+  display: inline-block;
+  position: relative;
+  left: 0px;
+  top: 12px;
+} 
+
+// not sure what this shit is 
+.optlab {
+  position: relative;
+  top: -1px;
+  padding-top: 19px;
+  padding-left: 0px;
+  font-weight: 400;
+  margin-right: -10px;
+} 
+
+
+.auth-content {
+  margin: -40px auto 0 auto;
+  padding: 0px;
+  width: 100%;
+}
+
+.nav.nav-tabs-justified li {
+  width: 50%;
+  text-align: center;
+  float: left;
+  a {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 510px;
+    margin: 30px auto;
+  }
+}
+
+
+
+
+.auth-content {
+  background: #FFF;
+}
+
+
+
+@media (max-width: 768px) {
+  .nav.nav-tabs-justified li a,
+  .nav.nav-tabs-justified li a:hover {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #FFF;
+    background: #FFF;
+  }
+
+  .nav-tabs-justified>.active>a, 
+  .nav-tabs-justified>.active>a:focus, 
+  .nav-tabs-justified>.active>a:hover {
+    border: 1px solid #ddd;
+    border-bottom-color: #FFF;
+    background: #FFF;
+  }
+
+  .auth-content .auth-content-inner .auth-form .stormy {
+    margin-top: 11px;
+    border-top: 1px solid #DEDEDE;
+  }
+
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+
+#pre-submit-container {
+}
+
+#post-submit-container {
+  display: none;
+}
+
+h3.free-heading {
+  font-size: 33px !important;
+  font-weight: 400 !important;
+}
+
+.block-spacer {
+  content: "";
+  height: 6px;
+  background: #DEDEDE;
+  margin-bottom: 25px;
+  width: 100px;
+  left: 50%;
+  position: relative;
+  margin-left: -50px;
+}
+
+p.email-tag-line {
+  color: #252525;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+#user-email-freeship {
+  text-align: center;
+}
+
+#free-shipping-button {
+  display: block;
+  width: 280px;
+  position: relative;
+  left: 50%;
+  margin-left: -140px;
+}
+
+a.free-ship-close {
+  margin-top: 20px;
+  color: #807e7e;
+  text-decoration: underline;
+  display: block;
+}
+
+.free-code-h4 {
+  
+}
+
+.free-code-h5 {
+  padding: 0px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-size: 36px !important;
+  color: #F44336;
+}
+
+@media screen and (max-width: 441px) {
+  .auth-content .auth-content-inner .auth-form h3.free-heading {
+      display: block;
+  }
+
+  .modal-backdrop.in {
+    filter: alpha(opacity=100);
+    opacity: 1.0;
+  }
+
+  .auth-content .auth-content-inner .auth-form.freehead {
+    background: #ffffff;
+  }
+
+}
+
+h4.free-code-h4 {
+  font-size: 1.5em;
+  margin: 40px 10px;
+  padding: 0px;
+  border: 0px;
+  text-transform: none;
+}
+
+@media screen and (max-width: 767px) {
+  h4.free-code-h4 {
+    font-size: 1.5em;
+    margin: 40px 10px;
+    padding: 0px;
+    border: 0px;
+    text-transform: none;
+  }
+
+}
+
+

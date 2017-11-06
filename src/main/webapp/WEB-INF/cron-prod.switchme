@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+    <cron>
+        <url>/worker/curateprintorders</url>
+        <description>Curate print orders that have been sent to Shapeways, and update their statuses with Trove.</description>
+        <schedule>every 3 hours</schedule>
+    </cron>
+    <cron>
+        <url>/worker/curateoutstandingprototypes</url>
+        <description>Curate prototypes that are marked as having been delivered to users and deal with them accordingly.</description>
+        <schedule>every 3 hours</schedule>
+    </cron>
+    <cron>
+        <url>/worker/settleorders</url>
+        <description>Submit outstanding orders for settlement with Braintree so that Trove may acquire dolla billz.</description>
+        <schedule>every 24 hours</schedule>
+    </cron>
+</cronentries>

@@ -1,0 +1,107 @@
+.card_avatar_small {
+  margin-right: 10px;
+}
+.card_username {
+  display: block;
+  font-size: 16px;
+  padding-top: 7px;
+  margin-bottom: 3px;
+}
+.overlaid {
+  position: relative;
+  background-color: rgba(242, 241, 242, 0.8);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.0;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+.overlaid .message {
+  margin-top: 0;
+  margin-left: 0;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  padding: 100px 20px;
+  border-radius: 8px;
+  color: #797979;
+  font-size: 18px;
+  width: 250px;
+  height: 390px;
+  background-color: #F0F0F0;
+}
+.btn--small {
+  padding: 5px 12px;
+}
+.overlaid .message img {
+  opacity: 0.2;
+  width: 44px;
+}
+.overlaid .message h2 {
+  color: #797979;
+  font-size: 23px;
+  margin-bottom: 40px;
+  line-height: .7em;
+}
+.hideitnow {
+  opacity: 0.2;
+}
+.grid-cta {
+  z-index: 4;
+}
+
+.buyModal.in ~ .modal-backdrop.in { 
+  background-color: #333;   
+  opacity: 0.5;
+  filter: alpha(opacity=50); 
+}
+.modal-content {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+}
+.modal-header {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+.modal-body {
+  padding-bottom: 50px;
+  padding-top: 30px;
+  text-align: center;
+}
+
+.banner {
+  // border-bottom: 2px solid #f0f0f0;
+  text-align: center;
+}
+.megladon {
+  position: relative;
+  width: 100%;
+  // max-width: 1100px;
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 510px;
+    margin: 30px auto;
+  }
+}
+
+.ownerimgholder {
+  display: block;
+  margin-top: 25px;
+  padding: 7px;
+  text-align: center;
+  margin-bottom: 13px;
+}
+
+
+.ownerimg {
+  width: 30%;
+}
+
+
+
+

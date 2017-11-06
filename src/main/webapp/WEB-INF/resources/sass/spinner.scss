@@ -1,0 +1,46 @@
+// IMPORTS
+@import 'palette';
+@import 'variables';
+@import 'mixins';
+
+.spinner {
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 20% 50%;
+  top: -10px;
+  position: relative;
+  left: -15px;
+  border: 3px solid rgba(200,200,200,0.8);
+  border-top-color: transparent;
+  border-radius: 100%;
+  @include animation('spin .6s infinite linear');
+}
+
+.button-spinner {
+  margin: auto;
+  display: none;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(200,200,200,0.8);
+  border-top-color: transparent;
+  border-radius: 100%;
+  @include animation('spin .6s infinite linear');
+}
+
+.spinner.controls, .spinner.shape {
+  margin: 30% 50%
+}
+
+.page-fade-spinner {
+  position: fixed;
+  margin: 25% 50%;
+}
+
+.spinner-display-status, .spinner-overlay-content {
+  display: none;
+}
+
+.spinner-overlay-content.show, .spinner-overlay-content.show {
+  display: block;
+}

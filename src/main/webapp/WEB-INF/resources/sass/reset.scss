@@ -1,0 +1,50 @@
+@import 'palette';
+@import 'variables';
+@import 'mixins';
+
+// onboarding
+body.reset {
+  padding-top: 0px;
+  .centrafuge {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 50%;
+    left: 0%;
+    padding: 15px;
+  }
+  h3 {
+    font-family: $header-font-family;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.75px;
+    font-weight: 300;
+  }
+  h5 {
+    font-family: $header-font-family;
+    letter-spacing: 1px;
+    line-height: 1.5;
+    margin-bottom: 80px;
+    font-weight: 300;
+  }
+  .ob-logo {
+    width: 240px;
+    padding-top: 5px;
+    padding-bottom: 34px;
+  }
+  .btn {
+    outline: 0;
+    font-family: $button-font-family;
+    background-color: $trove-red;
+    width: auto;
+    font-size: 15px;
+    text-transform: uppercase;
+    border: 0px solid transparent;
+    font-weight: 400;
+    color: #FFF;
+    @include transition(background-color 0.25s);
+    &:hover {
+      background-color: darken($trove-red, 5%);
+    }
+  }
+}

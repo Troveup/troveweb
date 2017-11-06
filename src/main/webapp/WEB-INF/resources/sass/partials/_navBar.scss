@@ -1,0 +1,26 @@
+a.topnav-icon.active {
+  color: #f26868;
+}
+
+.topnav-text {
+  font-size: 13px;
+  margin-top: 3px;
+}
+
+@media screen and (max-width: 768px) {
+  .use-info-bar-text {
+    padding: 0 20px 0;
+  }
+
+  #user-info-bar {
+    padding: 20px 0px 0px 0px;
+    padding-left: 0px !important;
+  }
+}
+
+
+@media screen and (max-width: 479px) {
+  .use-info-bar-text {
+    padding: 0 10px 0;
+  }
+}
